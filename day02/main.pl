@@ -2,14 +2,9 @@
 use Modern::Perl;
 use Data::Printer;
 use List::Util qw( all sum );
-
-sub read_input {
-    my $filename = shift;
-    open my $fh, '<', $filename or die "Can't open $filename: $!";
-    chomp( my @lines = <$fh> );
-    close $fh;
-    return @lines;
-}
+use FindBin;
+use lib "$FindBin::Bin/..";
+use File qw( read_input );
 
 sub is_safe {
     my @report       = split /\s+/, shift;
@@ -27,7 +22,7 @@ sub is_safe {
     return ( $all_pos || $all_neg ) && $valid_range;
 }
 
-my @lines = read_input('input');
+my @lines = read_input('day02/input');
 
 my $safe_count = sum map { is_safe( $_, -1 ) } @lines;
 

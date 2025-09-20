@@ -2,14 +2,9 @@
 use Modern::Perl;
 use Data::Printer;
 use List::Util qw( sum );
-
-sub read_input {
-    my $filename = shift;
-    open my $fh, '<', $filename or die "Can't open $filename: $!";
-    chomp( my @lines = <$fh> );    # chomp can be used in assignements
-    close $fh;
-    return @lines;
-}
+use FindBin;
+use lib "$FindBin::Bin/..";
+use File qw( read_input );
 
 sub parse_two_columns {
     my @lines = @_;
@@ -24,7 +19,7 @@ sub parse_two_columns {
     return ( \@left, \@right );
 }
 
-my @lines = read_input('input');
+my @lines = read_input('day01/input');
 my ( $left, $right ) = parse_two_columns(@lines);
 
 my $left_sorted  = [ sort { $a <=> $b } @$left ];
